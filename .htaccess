@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /AdvanceServerSideTutorials/tut05
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|assets|images|css|docs|js|system)
+RewriteRule ^(.*)$ /TechnicalQnAWebsite/index.php?/$1 [L]
