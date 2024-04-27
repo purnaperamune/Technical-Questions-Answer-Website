@@ -102,7 +102,7 @@
             },
             success: function(response) {
                 $('#change-password-modal').modal('hide');
-                window.location.href = '<?= base_url() ?>index.php/authentication/login';
+                window.location.href = '<?= base_url() ?>index.php/authentication/signin';
             },
             error: function(response) {
                 console.log(response);
