@@ -3,7 +3,7 @@
         <div class="panel-body">
             <h2 class="text-center">Sign In</h2>
 
-            <form action="<?= base_url() ?>index.php/auth/authenticate" method="POST" class="form-horizontal" role="form">
+            <form action="<?= base_url() ?>index.php/authentication/authenticate" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="text" class="form-control" id="username" name="username" placeholder="username">

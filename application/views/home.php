@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <h2 class="text-center"><b>KnowledgeNest</b></h2>
-            <form action="<?= base_url() ?>index.php/auth/confirmregister" method="POST" class="form-horizontal" role="form">
+            <form action="<?= base_url() ?>index.php/authentication/signup" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label for="fullName" class="col-sm-4 control-label">Full Name</label>
                     <div class="col-sm-8">
@@ -32,7 +32,7 @@
                         <button type="submit" class="btn btn-success">Sign up</button>
                     </div>
                     <div class="col-sm-3">
-                        <a href="<?= base_url() ?>index.php/auth/login" class="btn btn-success">Already a User?</a>
+                        <a href="<?= base_url() ?>index.php/authentication/login" class="btn btn-success">Already a User?</a>
                     </div>
                 </div>
             </form>
