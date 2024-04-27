@@ -15,7 +15,7 @@ class Authentication extends CI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         if (!$this->UserModel->create($fullName, $username, $password)) {
-            //TODO: redirect to register again with an error message
+            // Redirect to the signup page when an error occured
         } else {
             $this->load->view('templates/header.php');
             $this->load->view('success_registration');
@@ -23,14 +23,13 @@ class Authentication extends CI_Controller
         }
     }
 
-    public function login()
+    public function signin()
     {
         if (isset($this->session->login_error) && $this->session->login_error == true) {
-            // $this->session->login_error = false;
             $this->session->unset_userdata('login_error');
             $this->load->view('templates/header.php');
             $this->load->view(
-                'login',
+                'signin',
                 array('login_error_msg' => "Invalid Credentials. Please try again!")
             );
             $this->load->view('templates/footer.php');
@@ -38,7 +37,7 @@ class Authentication extends CI_Controller
             redirect('');
         } else {
             $this->load->view('templates/header.php');
-            $this->load->view('login');
+            $this->load->view('signin');
             $this->load->view('templates/footer.php');
         }
     }
@@ -53,7 +52,7 @@ class Authentication extends CI_Controller
             redirect('');
         } else {
             $this->session->login_error = true;
-            redirect('/authentication/login');
+            redirect('/authentication/signin');
         }
     }
 
@@ -89,11 +88,10 @@ class Authentication extends CI_Controller
             header('Content-Type: application/json');
             echo json_encode("Password Changed Successfully");
         } else {
-            // Display error msg
         }
     }
 
-    public function logout()
+    public function signout()
     {
         $this->session->is_logged_in = false;
         redirect('');

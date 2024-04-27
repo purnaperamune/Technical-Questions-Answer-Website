@@ -33,14 +33,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <a href="<?= base_url() ?>index.php/authentication/profile">Account</a>
                         </li>
                         <li>
-                            <a href="<?= base_url() ?>index.php/authentication/logout">Sign Out</a>
+                            <a href="<?= base_url() ?>index.php/authentication/signout">Sign Out</a>
                         </li>
                     <?php } else { ?>
                         <li>
                             <a href="<?= base_url() ?>index.php">Sign up</a>
                         </li>
                         <li>
-                            <a href="<?= base_url() ?>index.php/authentication/login">Sign In</a>
+                            <a href="<?= base_url() ?>index.php/authentication/signin">Sign In</a>
                         </li>
                     <?php } ?>
 

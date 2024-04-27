@@ -53,7 +53,7 @@
     <div class="signup-success">
         <h2>Thank You for Signing Up!</h2>
         <p>Your account has been created successfully.</p>
-        <a href="<?= base_url() ?>index.php/authentication/login" class="login-button">Click Here to Login</a>
+        <a href="<?= base_url() ?>index.php/authentication/signin" class="login-button">Click Here to Login</a>
     </div>
 </body>
 </html>

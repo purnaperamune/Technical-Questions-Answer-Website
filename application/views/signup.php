@@ -32,7 +32,7 @@
                         <button type="submit" class="btn btn-success">Sign up</button>
                     </div>
                     <div class="col-sm-3">
-                        <a href="<?= base_url() ?>index.php/authentication/login" class="btn btn-success">Already a User?</a>
+                        <a href="<?= base_url() ?>index.php/authentication/signin" class="btn btn-success">Already a User?</a>
                     </div>
                 </div>
             </form>
