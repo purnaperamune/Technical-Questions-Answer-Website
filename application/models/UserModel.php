@@ -9,10 +9,10 @@ class UserModel extends CI_Model
         $this->load->database();
     }
 
-    function create($fullName, $username, $password)
+    function create($firstName, $secondName, $username, $password)
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        if ($this->db->insert('user', array('fullName' => $fullName, 'username' => $username, 'password' => $hashed_password))) {
+        if ($this->db->insert('user', array('firstName' => $firstName, 'secondName' => $secondName, 'username' => $username, 'password' => $hashed_password))) {
             return true;
         } else {
             return false;
@@ -46,20 +46,27 @@ class UserModel extends CI_Model
 
     function getAccountName($username)
     {
+        $this->db->select('firstName, secondName');
         $this->db->where('username', $username);
         $query = $this->db->get('user');
 
         if ($query->num_rows() != 1) {
             return false;
         } else {
-            return $query->row()->fullName;
+            return $query->row();
         }
     }
 
-    function changeFullName($username, $fullName)
+    function changeFirstName($username, $firstName)
     {
         $this->db->where(array('username' => $username));
-        $this->db->update('user', array('fullName' => $fullName));
+        $this->db->update('user', array('firstName' => $firstName));
+    }
+
+    function changeSecondName($username, $secondName)
+    {
+        $this->db->where(array('username' => $username));
+        $this->db->update('user', array('secondName' => $secondName));
     }
 
     function changePassword($username, $oldPassword, $newPassword)

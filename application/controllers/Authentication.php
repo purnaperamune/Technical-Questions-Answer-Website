@@ -11,10 +11,11 @@ class Authentication extends CI_Controller
 
     public function signup()
     {
-        $fullName = $this->input->post('fullName');
+        $firstName = $this->input->post('firstName');
+        $secondName = $this->input->post('secondName');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        if (!$this->UserModel->create($fullName, $username, $password)) {
+        if (!$this->UserModel->create($firstName, $secondName, $username, $password)) {
             // Redirect to the signup page when an error occured
         } else {
             $this->load->view('templates/header.php');
@@ -57,20 +58,40 @@ class Authentication extends CI_Controller
     }
 
     public function profile()
-    {
-        $username = $this->session->username;
-        $fullName = $this->UserModel->getAccountName($username);
+{
+    $username = $this->session->username;
+    $accountName = $this->UserModel->getAccountName($username);
 
-        $this->load->view('templates/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
-        $this->load->view('profile', array('fullName' => $fullName));
-        $this->load->view('templates/footer.php');
+    if ($accountName) {
+        $firstName = $accountName->firstName;
+        $secondName = $accountName->secondName;
+    } else {
+        $firstName = '';
+        $secondName = '';
     }
 
-    public function changename()
+    $this->load->view('templates/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
+    $this->load->view('profile', array('firstName' => $firstName, 'secondName' => $secondName, 'username' => $username));
+    $this->load->view('templates/footer.php');
+}
+
+    public function changefirstname()
     {
         $username = $this->session->username;
-        $newFullName = $this->input->post('fullName');
-        $this->UserModel->changeFulLName($username, $newFullName);
+        $newFirstName = $this->input->post('firstName');
+
+        $this->UserModel->changeFirstName($username, $newFirstName);
+
+        header('Content-Type: application/json');
+        echo json_encode($this->UserModel->getAccountName($username));
+    }
+
+    public function changesecondname()
+    {
+        $username = $this->session->username;
+        $newSecondName = $this->input->post('secondName');
+
+        $this->UserModel->changeSecondName($username, $newSecondName);
 
         header('Content-Type: application/json');
         echo json_encode($this->UserModel->getAccountName($username));
