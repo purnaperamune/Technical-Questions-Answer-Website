@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="2;url=<?php echo site_url('home'); ?>" />
+    <meta http-equiv="refresh" content="2;url=<?php echo site_url('home/signup'); ?>" />
     <title>Welcome to KnowledgeNest</title>
     <style>
         body {

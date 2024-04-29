@@ -41,6 +41,9 @@
 
                 <div class="form-group" style="justify-content: center; display: flex">
                     <div class="col-sm-3">
+                        <a href="<?= base_url() ?>index.php/home/index" class="btn btn-success">Guest</a>
+                    </div>
+                    <div class="col-sm-3">
                         <button type="submit" class="btn btn-success">Sign up</button>
                     </div>
                     <div class="col-sm-3">

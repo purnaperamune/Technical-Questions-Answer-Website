@@ -20,7 +20,7 @@
                         <button type="submit" class="btn btn-success">Sign In</button>
                     </div>
                     <div style="margin-left: 25px">
-                        <a href="<?= base_url() ?>home/index" class="btn btn-success">Create Account</a>
+                        <a href="<?= base_url() ?>home/signup" class="btn btn-success">Create Account</a>
                     </div>
                 </div>
             </form>

@@ -37,7 +37,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </li>
                     <?php } else { ?>
                         <li>
-                            <a href="<?= base_url() ?>index.php">Sign up</a>
+                            <a href="<?= base_url() ?>home/signup">Sign up</a>
                         </li>
                         <li>
                             <a href="<?= base_url() ?>index.php/authentication/signin">Sign In</a>

@@ -21,17 +21,18 @@ class Home extends CI_Controller
 
 	public function index()
 	{
-		if ($this->UserModel->is_logged_in()) {
-			$questions = $this->QuestionModel->listTrendingQuestions();
-			$header = ($questions == false) ? 'This week\'s trending questions will be displayed here.' : 'Top Trending Questions';
+        $questions = $this->QuestionModel->listTrendingQuestions();
+        $header = ($questions == false) ? 'This week\'s trending questions will be displayed here.' : 'Top Trending Questions';
 
-			$this->load->view('templates/header.php', array('isLoggedIn' => true));
-			$this->load->view('question_list', array('questions' => $questions, 'header' => $header));
-			$this->load->view('templates/footer.php');
-		} else {
-			$this->load->view('templates/header.php');
-			$this->load->view('signup');
-			$this->load->view('templates/footer.php');
-		}
+        $this->load->view('templates/header', array('isLoggedIn' => $this->UserModel->is_logged_in()));
+        $this->load->view('question_list', array('questions' => $questions, 'header' => $header));
+        $this->load->view('templates/footer');
+	}
+
+	public function signup()
+	{
+		$this->load->view('templates/header.php');
+		$this->load->view('signup');
+		$this->load->view('templates/footer.php');
 	}
 }
