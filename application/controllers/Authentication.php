@@ -115,6 +115,6 @@ class Authentication extends CI_Controller
     public function signout()
     {
         $this->session->is_logged_in = false;
-        redirect('');
+        redirect('home/index');
     }
 }

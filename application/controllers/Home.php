@@ -10,6 +10,15 @@ class Home extends CI_Controller
 		$this->load->model('QuestionModel');
 	}
 
+	public function welcome()
+    {
+        if (!$this->UserModel->is_logged_in()) {
+            $this->load->view('welcome_message');
+        } else {
+            redirect('home/index');
+        }
+    }
+
 	public function index()
 	{
 		if ($this->UserModel->is_logged_in()) {
