@@ -11,36 +11,43 @@ class Authentication extends CI_Controller
 
     public function signup()
     {
-        $firstName = $this->input->post('firstName');
-        $secondName = $this->input->post('secondName');
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        if (!$this->UserModel->create($firstName, $secondName, $username, $password)) {
-            // Redirect to the signup page when an error occured
-        } else {
+        $this->form_validation->set_rules('firstName', 'First Name', 'required|trim');
+        $this->form_validation->set_rules('secondName', 'Second Name', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('confirmPassword', 'Confirm Password', 'required|trim|matches[password]');
+    
+        $this->form_validation->set_message('required', 'Please fill in the %s.');
+        $this->form_validation->set_message('matches', 'The passwords do not match.');
+    
+        if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header.php');
-            $this->load->view('success_registration');
+            $this->load->view('signup');
             $this->load->view('templates/footer.php');
+        } else {
+            $firstName = $this->input->post('firstName');
+            $secondName = $this->input->post('secondName');
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
+    
+            if ($this->UserModel->create($firstName, $secondName, $username, $password)) {
+                $this->load->view('templates/header.php');
+                $this->load->view('success_registration');
+                $this->load->view('templates/footer.php');
+            } else {
+                $this->session->set_flashdata('signup_error', 'Failed to create user account. Please try again.');
+                redirect('authentication/signup');
+            }
         }
     }
-
+    
     public function signin()
     {
-        if (isset($this->session->login_error) && $this->session->login_error == true) {
-            $this->session->unset_userdata('login_error');
-            $this->load->view('templates/header.php');
-            $this->load->view(
-                'signin',
-                array('login_error_msg' => "Invalid Credentials. Please try again!")
-            );
-            $this->load->view('templates/footer.php');
-        } elseif ($this->UserModel->is_logged_in()) {
-            redirect('');
-        } else {
-            $this->load->view('templates/header.php');
-            $this->load->view('signin');
-            $this->load->view('templates/footer.php');
-        }
+        $error_msg = $this->session->userdata('login_error');
+        $this->session->unset_userdata('login_error');
+        $this->load->view('templates/header.php');
+        $this->load->view('signin', ['login_error_msg' => $error_msg]);
+        $this->load->view('templates/footer.php');
     }
 
     public function authenticate()
@@ -48,32 +55,32 @@ class Authentication extends CI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         if ($this->UserModel->authenticate($username, $password)) {
-            $this->session->is_logged_in = true;
-            $this->session->username = $username;
-            redirect('');
+            $this->session->set_userdata('is_logged_in', true);
+            $this->session->set_userdata('username', $username);
+            redirect('home');
         } else {
-            $this->session->login_error = true;
-            redirect('/authentication/signin');
+            $this->session->set_userdata('login_error', 'Invalid Credentials. Please try again!');
+            redirect('authentication/signin');
         }
     }
 
     public function profile()
-{
-    $username = $this->session->username;
-    $accountName = $this->UserModel->getAccountName($username);
+    {
+        $username = $this->session->username;
+        $accountName = $this->UserModel->getAccountName($username);
 
-    if ($accountName) {
-        $firstName = $accountName->firstName;
-        $secondName = $accountName->secondName;
-    } else {
-        $firstName = '';
-        $secondName = '';
+        if ($accountName) {
+            $firstName = $accountName->firstName;
+            $secondName = $accountName->secondName;
+        } else {
+            $firstName = '';
+            $secondName = '';
+        }
+
+        $this->load->view('templates/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
+        $this->load->view('profile', array('firstName' => $firstName, 'secondName' => $secondName, 'username' => $username));
+        $this->load->view('templates/footer.php');
     }
-
-    $this->load->view('templates/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
-    $this->load->view('profile', array('firstName' => $firstName, 'secondName' => $secondName, 'username' => $username));
-    $this->load->view('templates/footer.php');
-}
 
     public function changefirstname()
     {

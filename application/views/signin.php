@@ -3,15 +3,21 @@
         <div class="panel-body">
             <h2 class="text-center">Sign In</h2>
 
+            <?php if (!empty($login_error_msg)): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $login_error_msg ?>
+                </div>
+            <?php endif; ?>
+
             <form action="<?= base_url() ?>index.php/authentication/authenticate" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="username">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                     </div>
                 </div>
                 
