@@ -1,3 +1,4 @@
+<!-- Model for User related db interations. -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -9,6 +10,7 @@ class UserModel extends CI_Model
         $this->load->database();
     }
 
+    // Creating, Inserting a new user to db.
     function create($firstName, $secondName, $username, $password)
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -19,6 +21,7 @@ class UserModel extends CI_Model
         }
     }
 
+    // User Authentication.
     function authenticate($username, $password)
     {
         $query = $this->db->get_where('user', array('username' => $username));
@@ -35,6 +38,7 @@ class UserModel extends CI_Model
         }
     }
 
+    // Check if a user is already logged in.
     function is_logged_in()
     {
         if (isset($this->session->is_logged_in) && $this->session->is_logged_in == true) {
@@ -44,6 +48,7 @@ class UserModel extends CI_Model
         }
     }
 
+    // Retrieving logged in user details fro the user profile.
     function getAccountName($username)
     {
         $this->db->select('firstName, secondName');
@@ -57,18 +62,21 @@ class UserModel extends CI_Model
         }
     }
 
+    // Updatin user's first name.
     function changeFirstName($username, $firstName)
     {
         $this->db->where(array('username' => $username));
         $this->db->update('user', array('firstName' => $firstName));
     }
 
+    // Updating user's second name.
     function changeSecondName($username, $secondName)
     {
         $this->db->where(array('username' => $username));
         $this->db->update('user', array('secondName' => $secondName));
     }
 
+    // Changing user's password.
     function changePassword($username, $oldPassword, $newPassword)
     {
         $query = $this->db->get_where('user', array('username' => $username));

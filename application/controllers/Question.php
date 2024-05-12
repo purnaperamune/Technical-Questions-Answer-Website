@@ -1,3 +1,4 @@
+<!-- Controller for Question related functions.  -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -15,6 +16,7 @@ class Question extends RestController
         $this->load->model('UserModel');
     }
 
+    // Inserting new questions.
     public function question_post()
     {
         $username = $this->session->username;
@@ -31,6 +33,7 @@ class Question extends RestController
         }
     }
 
+    // Retrieving questions.
     public function question_get()
     {
         $questionId = $this->get('id');
@@ -65,6 +68,7 @@ class Question extends RestController
         }
     }
 
+    // Updating existing questions. 
     public function question_patch()
     {
         $id = $this->patch('id');
@@ -83,6 +87,7 @@ class Question extends RestController
         }
     }
 
+    // Removing questions.
     public function question_delete($id)
     {
         $username = $this->session->username;
@@ -91,6 +96,7 @@ class Question extends RestController
         $this->set_response(null, RestController::HTTP_NO_CONTENT);
     }
 
+    // Upvoting a question.
     public function upvote_post()
     {
         $id = $this->post('id');
@@ -100,6 +106,7 @@ class Question extends RestController
         $this->response($question, RestController::HTTP_OK);
     }
 
+    // Downvoting a question.
     public function downvote_post()
     {
         $id = $this->post('id');
@@ -109,6 +116,7 @@ class Question extends RestController
         $this->response($question, RestController::HTTP_OK);
     }
 
+    // Loading the UI to ask a question.
     public function ask_get()
     {
         $categories = $this->QuestionModel->getCategories();
@@ -118,6 +126,7 @@ class Question extends RestController
         $this->load->view('templates/footer.php');
     }
 
+    // Getting the categories from the db.
     public function categories_get()
     {
         $categories = $this->QuestionModel->getCategories();
@@ -127,6 +136,7 @@ class Question extends RestController
         $this->load->view('templates/footer.php');
     }
 
+    // Searcing for questions using keywords.
     public function search_get()
     {
         $keyword = $this->get('keyword');

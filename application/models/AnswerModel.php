@@ -1,3 +1,4 @@
+<!-- Model for Answer related db interations. -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -9,6 +10,7 @@ class AnswerModel extends CI_Model
         $this->load->database();
     }
 
+    // Inserting answers.
     function addAnswer($questionId, $username, $description)
     {
         $this->db->set('answerCount', 'answerCount + 1', FALSE);
@@ -27,6 +29,7 @@ class AnswerModel extends CI_Model
         return $this->db->insert_id();
     }
 
+    // Retrieving answers by id
     function getAnswerById($answerId)
     {
         $this->db->where('id', $answerId);
@@ -39,6 +42,7 @@ class AnswerModel extends CI_Model
         }
     }
 
+    // Retrieving answers for the selected question.
     function getAnswers($questionId)
     {
         $this->db->order_by('upvoteCount', 'DESC');
@@ -55,12 +59,14 @@ class AnswerModel extends CI_Model
         return $answers;
     }
 
+    // Updating existing answers.
     function updateAnswer($answerId, $username, $description)
     {
         $this->db->where(array('id' => $answerId, 'username' => $username));
         $this->db->update('answer', array('description' => $description));
     }
 
+    // Deleting an answer.
     function removeAnswer($username, $id)
     {
         $this->db->where('id', $id);
@@ -74,6 +80,7 @@ class AnswerModel extends CI_Model
         $this->db->delete('answer', array('username' => $username, 'id' => $id));
     }
 
+    // Upvoting an answer.
     function upvoteAnswer($answerId)
     {
         $this->db->set('upvoteCount', 'upvoteCount+1', FALSE);
@@ -81,6 +88,7 @@ class AnswerModel extends CI_Model
         $this->db->update('answer');
     }
 
+    // Downvoting an asnwer.
     function downvoteAnswer($answerId)
     {
         $this->db->set('upvoteCount', 'upvoteCount-1', FALSE);

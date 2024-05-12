@@ -1,3 +1,4 @@
+<!-- Controller for User Authentication related functions.  -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -9,6 +10,7 @@ class Authentication extends CI_Controller
         $this->load->model('UserModel');
     }
 
+    // Registration for new users.
     public function signup()
     {
         $this->form_validation->set_rules('firstName', 'First Name', 'required|trim');
@@ -41,6 +43,7 @@ class Authentication extends CI_Controller
         }
     }
     
+    // Sign in for existing users.
     public function signin()
     {
         $error_msg = $this->session->userdata('login_error');
@@ -50,6 +53,7 @@ class Authentication extends CI_Controller
         $this->load->view('templates/footer.php');
     }
 
+    // User authentications 
     public function authenticate()
     {
         $username = $this->input->post('username');
@@ -64,6 +68,7 @@ class Authentication extends CI_Controller
         }
     }
 
+    // Loading the profile for signed in users.
     public function profile()
     {
         $username = $this->session->username;
@@ -82,6 +87,7 @@ class Authentication extends CI_Controller
         $this->load->view('templates/footer.php');
     }
 
+    // Changing the first name for signed in users.
     public function changefirstname()
     {
         $username = $this->session->username;
@@ -93,6 +99,7 @@ class Authentication extends CI_Controller
         echo json_encode($this->UserModel->getAccountName($username));
     }
 
+    // Changing the second name for signed in users.
     public function changesecondname()
     {
         $username = $this->session->username;
@@ -104,6 +111,7 @@ class Authentication extends CI_Controller
         echo json_encode($this->UserModel->getAccountName($username));
     }
 
+    // Changing the password for existing users.
     public function changepassword()
     {
         $username = $this->session->username;
@@ -119,6 +127,7 @@ class Authentication extends CI_Controller
         }
     }
 
+    // Signout from the account
     public function signout()
     {
         $this->session->is_logged_in = false;

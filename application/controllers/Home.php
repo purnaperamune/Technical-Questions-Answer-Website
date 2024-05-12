@@ -1,3 +1,4 @@
+<!-- Controller to load initial views for the user: Home Page.  -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -10,6 +11,7 @@ class Home extends CI_Controller
 		$this->load->model('QuestionModel');
 	}
 
+	// Starting page. Redirects to the index page/sign up page after sometime. 
 	public function welcome()
     {
         if (!$this->UserModel->is_logged_in()) {
@@ -19,6 +21,7 @@ class Home extends CI_Controller
         }
     }
 
+	// Home page of the web application. 
 	public function index()
 	{
         $questions = $this->QuestionModel->listTrendingQuestions();
@@ -29,6 +32,7 @@ class Home extends CI_Controller
         $this->load->view('templates/footer');
 	}
 
+	// Loading Sign up UI
 	public function signup()
 	{
 		$this->load->view('templates/header.php');

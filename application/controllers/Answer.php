@@ -1,3 +1,4 @@
+<!-- Controller for Answers related functions.  -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -14,6 +15,7 @@ class Answer extends RestController
         $this->load->model('UserModel');
     }
 
+    // Function to insert answers to db
     public function answer_post()
     {
         $questionId = $this->post('questionId');
@@ -30,6 +32,7 @@ class Answer extends RestController
         }
     }
 
+    // Function to retrieven answers from db
     public function answers_get()
     {
         $questionId = $this->get('questionId');
@@ -42,6 +45,7 @@ class Answer extends RestController
         }
     }
 
+    // Function to update existing answers in the db.
     public function answer_patch()
     {
         $answerId = $this->patch('id');
@@ -58,6 +62,7 @@ class Answer extends RestController
         }
     }
 
+    // Deleting answers from the db.
     public function answer_delete($id)
     {
         $username = $this->session->username;
@@ -66,6 +71,7 @@ class Answer extends RestController
         $this->set_response(null, RestController::HTTP_NO_CONTENT);
     }
 
+    // Upvoting answers.
     public function upvote_post()
     {
         $answerId = $this->post('answerId');
@@ -75,6 +81,7 @@ class Answer extends RestController
         $this->response($answer, RestController::HTTP_OK);
     }
 
+    // Downvoting answers.
     public function downvote_post()
     {
         $answerId = $this->post('answerId');

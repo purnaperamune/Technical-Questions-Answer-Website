@@ -1,3 +1,4 @@
+<!-- Model for Question related db interations. -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -9,6 +10,7 @@ class QuestionModel extends CI_Model
         $this->load->database();
     }
 
+    // Inserting new questions.
     function addQuestion($username, $category, $title, $description)
     {
         $this->db->set('questionCount', 'questionCount + 1', FALSE);
@@ -28,6 +30,7 @@ class QuestionModel extends CI_Model
         return $this->db->insert_id();
     }
 
+    // Retrieving questions by id
     function getQuestionsById($questionId)
     {
         if ($questionId) {
@@ -54,6 +57,7 @@ class QuestionModel extends CI_Model
         }
     }
 
+    // Retrieving questions by category
     function getQuestionsByCategory($category)
     {
         $this->db->where('category', $category);
@@ -70,6 +74,7 @@ class QuestionModel extends CI_Model
         return $questions;
     }
 
+    // Retrieving the latest questions.
     function listTrendingQuestions()
     {
         $this->db->where('created_at >=', date('Y-m-d', strtotime('-1 week')));
@@ -86,6 +91,7 @@ class QuestionModel extends CI_Model
         return $questions;
     }
 
+    // Retrieving categories.
     function getCategories()
     {
         $query = $this->db->get('category');
@@ -100,6 +106,7 @@ class QuestionModel extends CI_Model
         return $categories;
     }
 
+    // Updating exsinting questions. 
     function updateQuestion($id, $username, $category, $title, $description)
     {
         $this->db->where('id', $id);
@@ -120,6 +127,7 @@ class QuestionModel extends CI_Model
         $this->db->update('question', array('category' => $category, 'title' => $title, 'description' => $description));
     }
 
+    // Deleting questions. 
     function removeQuestion($username, $id)
     {
         $this->db->where('id', $id);
@@ -134,6 +142,7 @@ class QuestionModel extends CI_Model
         $this->db->delete('question', array('username' => $username, 'id' => $id));
     }
 
+    // Upvoting a question.
     function upvoteQuestion($id)
     {
         $this->db->set('upvoteCount', 'upvoteCount+1', FALSE);
@@ -141,6 +150,7 @@ class QuestionModel extends CI_Model
         $this->db->update('question');
     }
 
+    // Downvoting a question.
     function downvoteQuestion($id)
     {
         $this->db->set('upvoteCount', 'upvoteCount-1', FALSE);
@@ -148,6 +158,7 @@ class QuestionModel extends CI_Model
         $this->db->update('question');
     }
 
+    // Finidng questions by keywords.
     function find($keyword)
     {
         $this->db->like('title', $keyword);
