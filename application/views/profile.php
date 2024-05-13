@@ -125,6 +125,9 @@
             },
             error: function(response) {
                 console.log(response);
+            },
+            complete: function() {
+                window.location.reload();
             }
         });
     });
@@ -142,6 +145,9 @@
             },
             error: function(response) {
                 console.log(response);
+            },
+            complete: function() {
+                window.location.reload();
             }
         });
     });
@@ -160,6 +166,9 @@
             },
             error: function(response) {
                 console.log(response);
+            },
+            complete: function() {
+                window.location.reload();
             }
         });
     });
