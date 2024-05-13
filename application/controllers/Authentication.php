@@ -1,4 +1,3 @@
-<!-- Controller for User Authentication related functions.  -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 

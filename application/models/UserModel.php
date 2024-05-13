@@ -1,4 +1,3 @@
-<!-- Model for User related db interations. -->
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
